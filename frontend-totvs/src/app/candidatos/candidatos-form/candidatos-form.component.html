@@ -28,8 +28,10 @@
       p-url="http://localhost:8080/file">
     </po-upload>
 
-    <po-info *ngIf="candidato.file" class="po-sm-6" p-label="Curriculo anexado" [p-value]=candidato.file.filename>
+    <po-info *ngIf="candidato.file" class="po-sm-12" p-label="Curriculo anexado" [p-value]=candidato.file.filename>
     </po-info>
+    <po-button class="po-sm-3" *ngIf="candidato.file" (p-click)="downloadFile()" p-label="Download File" [p-small]=true>
+    </po-button>
   </form>
 
 </po-page-edit>

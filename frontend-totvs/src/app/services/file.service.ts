@@ -12,7 +12,7 @@ export class FileService {
   constructor(private httpClient: HttpClient) { }
 
   public getFileById(fileId: string): Observable<any> {
-    return this.httpClient.get<any>(`${this.url}/${fileId}`)
+    return this.httpClient.get(`${this.url}/${fileId}`, {responseType: 'blob'});
   }
 
   public create(formData: FormData): Observable<String> {

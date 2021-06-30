@@ -67,9 +67,8 @@ public class FileService {
 
     return this.getById(id).flatMap(fileFounded -> {
       try {
-        Path file = Paths.get(uploadPath).resolve(fileFounded.getFilename());
+        Path file = Paths.get(uploadPath).resolve(fileFounded.getUrl());
         Resource resource = new UrlResource(file.toUri());
-
         if (resource.exists() || resource.isReadable()) {
           return Optional.of(resource);
         } else {

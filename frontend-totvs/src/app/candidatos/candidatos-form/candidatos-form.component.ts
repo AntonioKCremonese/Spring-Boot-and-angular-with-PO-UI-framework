@@ -4,9 +4,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PoNotificationService, PoSelectOption, PoUploadComponent } from '@po-ui/ng-components';
 import { PoUploadFile } from '@po-ui/ng-components/lib/components/po-field/po-upload/po-upload-file';
 import { Subscription } from 'rxjs';
+import { Candidato } from 'src/app/interfaces/Candidato';
 import { CandidatoService } from 'src/app/services/candidato.service';
 import { FileService } from 'src/app/services/file.service';
 import { VagasService } from 'src/app/services/vaga.service';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-candidatos-form',
@@ -20,7 +22,7 @@ export class CandidatosFormComponent implements OnInit, OnDestroy {
   public vagaOptions: Array<PoSelectOption> = [];
   public candidato: any = { name: '', mail: '', phone: '', vaga: {id: ''}};
 
-  @ViewChild(PoUploadComponent, { static: true }) upload!: PoUploadComponent;
+  // @ViewChild(PoUploadComponent, { static: true }) upload!: PoUploadComponent;
   
   constructor(private vagasService: VagasService, 
     private candidatoService: CandidatoService, 
@@ -66,8 +68,12 @@ export class CandidatosFormComponent implements OnInit, OnDestroy {
     return this.action === 'new' ? 'Novo Candidato': 'Editar Candidato';
   }
 
-  sendFile(){
-    this.upload.sendFiles();
+  downloadFile() {
+    this.fileService.getFileById(this.candidato.file.id).subscribe(res => {
+      const blob = new Blob([res], { type: 'application/pdf' });
+      const url = window.URL.createObjectURL(blob);
+      window.open(url);
+    })
   }
 
   save(){

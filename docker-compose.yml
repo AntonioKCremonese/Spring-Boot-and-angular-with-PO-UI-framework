@@ -1,0 +1,42 @@
+version: '3.1'
+services:
+  db:
+    image: mysql
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - 3306:3306
+    networks:
+      - db-mysql
+    volumes:
+      - backend_totvs:/var/lib/mysql
+  backend: 
+    build: ./backend-totvs
+    container_name: backend_totvs
+    environment: 
+      - DB_SERVER=db
+    ports:
+      - 8080:8080
+    networks:
+      - db-mysql
+    depends_on:
+      - db
+    volumes:
+      - uploads:/uploads
+    links:
+      - db
+  frontend:
+    build: ./frontend-totvs
+    container_name: frontend_totvs
+    ports:
+      - 4200:80
+    links:
+      - backend
+
+volumes:
+  backend_totvs:
+  uploads:
+
+networks:
+  db-mysql: 

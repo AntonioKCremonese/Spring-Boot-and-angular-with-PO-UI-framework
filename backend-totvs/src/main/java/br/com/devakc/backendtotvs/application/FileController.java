@@ -1,13 +1,17 @@
 package br.com.devakc.backendtotvs.application;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

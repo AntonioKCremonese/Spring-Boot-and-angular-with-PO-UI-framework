@@ -16,8 +16,8 @@
 
     <po-divider class="po-sm-12" p-label="Vagas Disponíveis"></po-divider>
 
-    <po-select *ngIf="vagaOptions.length > 0" class="po-md-3" name="vaga" [(ngModel)]="candidato.vaga.id"
-      p-label="Vagas" [p-optional]=false [p-options]="vagaOptions">
+    <po-select *ngIf="vagaOptions" class="po-md-3" name="vaga" [(ngModel)]="candidato.vaga.id" p-label="Vagas"
+      [p-optional]=false [p-options]="vagaOptions">
     </po-select>
 
     <po-divider class="po-sm-12" p-label="Anexar Currículo"></po-divider>

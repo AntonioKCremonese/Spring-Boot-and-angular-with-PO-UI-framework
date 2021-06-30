@@ -8,7 +8,6 @@ import { Candidato } from 'src/app/interfaces/Candidato';
 import { CandidatoService } from 'src/app/services/candidato.service';
 import { FileService } from 'src/app/services/file.service';
 import { VagasService } from 'src/app/services/vaga.service';
-import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-candidatos-form',
@@ -21,8 +20,6 @@ export class CandidatosFormComponent implements OnInit, OnDestroy {
   
   public vagaOptions: Array<PoSelectOption> = [];
   public candidato: any = { name: '', mail: '', phone: '', vaga: {id: ''}};
-
-  // @ViewChild(PoUploadComponent, { static: true }) upload!: PoUploadComponent;
   
   constructor(private vagasService: VagasService, 
     private candidatoService: CandidatoService, 
@@ -37,7 +34,7 @@ export class CandidatosFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.vagasService.getAllVagas().subscribe(res => {
-      if(res.length > 0){
+      if(res && res.length > 0){
         this.vagaOptions = res.map(vaga => {
           return {
             label: vaga.name,
@@ -47,21 +44,23 @@ export class CandidatosFormComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.paramsSub = this.route.params.subscribe(params => {
-      if (params['id']) {
-        this.candidatoService.getCandidatoById(params['id']).subscribe(res => {
-          this.candidato = {
-            id: res.id,
-            name: res.name,
-            mail: res.mail,
-            phone: res.phone,
-            vaga: res.vaga,
-            file: res.file,
-          }
-        });
-        this.action = 'edit';
-      }
-    });
+    if(this.route.params){
+      this.paramsSub = this.route.params.subscribe(params => {
+        if (params['id']) {
+          this.candidatoService.getCandidatoById(params['id']).subscribe(res => {
+            this.candidato = {
+              id: res.id,
+              name: res.name,
+              mail: res.mail,
+              phone: res.phone,
+              vaga: res.vaga,
+              file: res.file,
+            }
+          });
+          this.action = 'edit';
+        }
+      });
+    }
   }
 
   get title(){

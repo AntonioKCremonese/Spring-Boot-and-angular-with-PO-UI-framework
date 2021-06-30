@@ -1,0 +1,35 @@
+<po-page-edit (p-save)="save()" (p-cancel)="cancel()" [p-title]="title"
+  [p-disable-submit]="formCandidato.invalid ?? false">
+
+  <form #formCandidato="ngForm">
+
+    <po-divider class="po-sm-12" p-label="Dados cadastrais"></po-divider>
+
+    <po-input class="po-md-4" name="name" [(ngModel)]="candidato.name" p-required p-label="Nome" p-disabled=false>
+    </po-input>
+
+    <po-email class="po-md-4" name="mail" [(ngModel)]="candidato.mail" p-required p-label="E-mail" p-disabled=false>
+    </po-email>
+
+    <po-input class="po-md-4" name="phone" [(ngModel)]="candidato.phone" p-required p-label="Phone" p-disabled=false>
+    </po-input>
+
+    <po-divider class="po-sm-12" p-label="Vagas Disponíveis"></po-divider>
+
+    <po-select class="po-md-3" name="vaga" [(ngModel)]="candidato.vaga.id" p-label="Vagas" [p-optional]=false
+      [p-options]="vagaOptions">
+    </po-select>
+
+    <po-divider class="po-sm-12" p-label="Anexar Currículo"></po-divider>
+
+    <po-upload *ngIf="!candidato.file" [p-auto-upload]=true [p-disabled]="candidato.file" p-form-field="file"
+      [p-hide-send-button]=false (p-error)="errorUpload($event)" (p-success)="successUpload($event)"
+      (p-upload)="uploadFile($event)" p-label="Curriculo" name="teste" [p-required]=false
+      p-url="http://localhost:8080/file">
+    </po-upload>
+
+    <po-info *ngIf="candidato.file" class="po-sm-6" p-label="Curriculo anexado" [p-value]=candidato.file.filename>
+    </po-info>
+  </form>
+
+</po-page-edit>

@@ -1,0 +1,36 @@
+<po-page-edit
+  (p-save)="save()"
+  (p-cancel)="cancel()"
+  [p-title]="title"
+  [p-disable-submit]="formVagas.invalid ?? false">
+
+  <form #formVagas="ngForm">
+
+    <po-divider class="po-sm-12" p-label="Dados cadastrais"></po-divider>
+
+    <po-input class="po-md-5"
+      name="name"
+      [(ngModel)]="vaga.name"
+      p-required
+      p-label="Nome"
+      p-disabled=false>
+    </po-input>
+
+    <!-- <po-input class="po-md-5"
+      name="description"
+      [(ngModel)]="vaga.description"
+      p-required
+      p-label="Description"
+      p-disabled=false>
+    </po-input> -->
+
+    <po-select class="po-md-3"
+      name="status"
+      [(ngModel)]="vaga.status"
+      p-label="Status"
+      [p-optional]=false
+      [p-options]="statusOptions">
+    </po-select>
+  </form>
+
+</po-page-edit>

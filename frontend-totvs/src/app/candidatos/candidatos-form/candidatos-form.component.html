@@ -16,14 +16,14 @@
 
     <po-divider class="po-sm-12" p-label="Vagas Disponíveis"></po-divider>
 
-    <po-select class="po-md-3" name="vaga" [(ngModel)]="candidato.vaga.id" p-label="Vagas" [p-optional]=false
-      [p-options]="vagaOptions">
+    <po-select *ngIf="vagaOptions.length > 0" class="po-md-3" name="vaga" [(ngModel)]="candidato.vaga.id"
+      p-label="Vagas" [p-optional]=false [p-options]="vagaOptions">
     </po-select>
 
     <po-divider class="po-sm-12" p-label="Anexar Currículo"></po-divider>
 
-    <po-upload *ngIf="!candidato.file" [p-auto-upload]=true [p-disabled]="candidato.file" p-form-field="file"
-      [p-hide-send-button]=false (p-error)="errorUpload($event)" (p-success)="successUpload($event)"
+    <po-upload *ngIf="(!candidato.file && candidato.id)" [p-auto-upload]=true [p-disabled]="candidato.file"
+      p-form-field="file" [p-hide-send-button]=false (p-error)="errorUpload($event)" (p-success)="successUpload($event)"
       (p-upload)="uploadFile($event)" p-label="Curriculo" name="teste" [p-required]=false
       p-url="http://localhost:8080/file">
     </po-upload>
